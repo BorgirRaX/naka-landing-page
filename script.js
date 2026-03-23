@@ -82,26 +82,57 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
-        // Unobserve agar animasi hanya jalan 1x (tidak repeat setiap di-scroll naik-turun)
         observer.unobserve(entry.target); 
       }
     });
   }, {
     root: null,
-    threshold: 0.15, // Trigger saat 15% elemen terlihat di layar
-    rootMargin: "0px 0px -50px 0px" // Trigger sedikit sebelum elemen benar-benar masuk layar
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
 
+  /* ---------- Parallax Effect ---------- */
+  const parallaxElements = document.querySelectorAll('[data-parallax]');
+  
+  const handleParallax = () => {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    parallaxElements.forEach(el => {
+      const speed = parseFloat(el.getAttribute('data-parallax'));
+      
+      // Hero elements relate to topmost scroll
+      if (el.closest('#hero')) {
+        el.style.transform = `translateY(${scrollY * speed}px)`;
+        return;
+      }
+      
+      // Other elements relate to their visibility in viewport
+      const parentRect = el.parentElement.getBoundingClientRect();
+      const parentCenter = parentRect.top + (parentRect.height / 2);
+      const viewportCenter = windowHeight / 2;
+      
+      if (parentRect.top < windowHeight && parentRect.bottom > 0) {
+        // Pindahkan berdasarkan jarak pusat elemen ke pusat layar
+        const offset = (parentCenter - viewportCenter) * speed;
+        el.style.transform = `translateY(${offset}px)`;
+      }
+    });
+  };
+
+  // Panggil sekali agar posisi awal pas, lalu sinkronkan di tiap scroll
+  handleParallax();
+  window.addEventListener('scroll', handleParallax, { passive: true });
+
   /* ---------- Product Data & Slider ---------- */
-  // KAMU BISA MENAMBAH ATAU MENGUBAH MENU DI SINI:
   const productsData = [
     {
       title: "Cafe Latte",
       desc: "Perpaduan Espresso dan Susu segar. Cocok untuk yang kurang suka manis.",
       price: "Rp. 15.000",
-      img: "assets/images/NakaActivity1.png" // Ganti path foto produk nanti
+      img: "assets/images/NakaActivity1.png"
     },
     {
       title: "Chocolatte",
@@ -127,7 +158,6 @@
   const dotsContainer = document.getElementById('product-dots');
 
   if (slider && dotsContainer) {
-    // 1. Render HTML Cards dari array di atas
     slider.innerHTML = productsData.map(val => `
       <div class="product-card">
         <img src="${val.img}" alt="${val.title}" class="product-card__img" draggable="false">
@@ -139,20 +169,50 @@
       </div>
     `).join('');
 
-    // 2. Render Dots
     const cardNodes = slider.querySelectorAll('.product-card');
-    dotsContainer.innerHTML = productsData.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`).join('');
-    const dots = dotsContainer.querySelectorAll('.dot');
+    let dots = [];
+    let cardsPerDot = 1;
 
-    // 3. Logika Scroll Horizontal dgn Mouse (Drag)
+    const renderDots = () => {
+      if (cardNodes.length === 0) return;
+      
+      const sliderWidth = slider.clientWidth;
+      const cardWidth = cardNodes[0].offsetWidth + 24;
+      
+      cardsPerDot = Math.max(1, Math.floor(sliderWidth / cardWidth));
+      const dotCount = Math.ceil(cardNodes.length / cardsPerDot);
+      
+      dotsContainer.innerHTML = Array.from({length: dotCount}).map((_, i) => 
+        `<div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`
+      ).join('');
+      
+      dots = dotsContainer.querySelectorAll('.dot');
+      
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.index);
+          let targetIndex = index * cardsPerDot;
+          if (targetIndex >= cardNodes.length) targetIndex = cardNodes.length - 1;
+          
+          const targetCard = cardNodes[targetIndex];
+          if (targetCard) {
+            slider.scrollTo({ left: targetCard.offsetLeft - slider.parentElement.offsetLeft, behavior: 'smooth' });
+          }
+        });
+      });
+    };
+
+    renderDots();
+    window.addEventListener('resize', renderDots);
+
     let isDown = false;
     let startX;
     let scrollLeft;
 
     slider.addEventListener('mousedown', (e) => {
       isDown = true;
-      slider.style.scrollSnapType = 'none'; // Matikan snap sementara
-      slider.style.scrollBehavior = 'auto'; // Matikan smooth sementara
+      slider.style.scrollSnapType = 'none';
+      slider.style.scrollBehavior = 'auto';
       startX = e.pageX - slider.offsetLeft;
       scrollLeft = slider.scrollLeft;
     });
@@ -160,34 +220,109 @@
     slider.addEventListener('mouseleave', () => { isDown = false; });
     slider.addEventListener('mouseup', () => {
       isDown = false;
-      slider.style.scrollSnapType = 'x mandatory'; // Nyalakan snap kembali
-      slider.style.scrollBehavior = 'smooth';      // Nyalakan smooth kembali
+      slider.style.scrollSnapType = 'x mandatory';
+      slider.style.scrollBehavior = 'smooth';
     });
 
     slider.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.5; // Kecepatan geser
+      const walk = (x - startX) * 1.5;
       slider.scrollLeft = scrollLeft - walk;
     });
 
-    // 4. Sinkronisasi Klik Dot & Scroll
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const index = dot.dataset.index;
-        const targetCard = cardNodes[index];
-        slider.scrollTo({ left: targetCard.offsetLeft - slider.parentElement.offsetLeft, behavior: 'smooth' });
-      });
-    });
-
     slider.addEventListener('scroll', () => {
+      if (dots.length === 0) return;
+      
       const scrollPos = slider.scrollLeft;
-      const cardWidth = cardNodes[0].offsetWidth + 24; // lebar card + ukuran gap
-      const index = Math.round(scrollPos / cardWidth);
+      const cardWidth = cardNodes[0].offsetWidth + 24;
+      
+      const activeCardIndex = Math.round(scrollPos / cardWidth);
+      let activeDotIndex = Math.floor(activeCardIndex / cardsPerDot);
+      
+      if (activeDotIndex >= dots.length) activeDotIndex = dots.length - 1;
+
       dots.forEach(d => d.classList.remove('active'));
-      if (dots[index]) dots[index].classList.add('active');
+      if (dots[activeDotIndex]) {
+        dots[activeDotIndex].classList.add('active');
+      }
     }, { passive: true });
+  }
+
+  /* ---------- Custom Toast Notification ---------- */
+  const showToast = (message, isError = false) => {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${isError ? 'toast--error' : ''}`;
+    toast.innerText = message;
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('toast--show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('toast--show');
+      setTimeout(() => toast.remove(), 350);
+    }, 3000);
+  };
+
+  /* ---------- Feedback Form (Anonymous) ---------- */
+  const feedbackInput = document.querySelector('.feedback__input');
+  const feedbackSubmit = document.querySelector('.feedback__submit');
+
+  if (feedbackInput && feedbackSubmit) {
+    feedbackSubmit.addEventListener('click', async () => {
+      const message = feedbackInput.value.trim();
+      
+      if (!message) {
+        showToast('Ups, pesan masih kosong! Silakan tulis sesuatu.', true);
+        return;
+      }
+
+      // Ubah tombol jadi status loading
+      const originalText = feedbackSubmit.innerText;
+      feedbackSubmit.innerText = 'Mengirim...';
+      feedbackSubmit.disabled = true;
+
+      try {
+        // KONFIGURASI PENGIRIMAN ANONIM (Gunakan fasilitas Web3Forms)
+        // 1. Kunjungi https://web3forms.com/ dan masukkan email untuk dapat "Access Key".
+        // 2. Hilangkan tanda komentar (/* ... */) pada kodingan fetch di bawah, dan ganti access_key-nya.
+        
+        /*
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: 'YOUR_ACCESS_KEY_HERE', // <--- GANTI DENGAN ACCESS KEY DARI EMAILMU
+            subject: 'Kritik & Saran Baru - Website Naka Coffee',
+            from_name: 'Pengunjung Anonim Naka', 
+            message: message // Teks ketikan user
+          })
+        });
+        const result = await response.json();
+        if (!result.success) throw new Error('API Error');
+        */
+        
+        // --- SIMULASI LOADING BIAR KELIHATAN KERJA (Nanti Hapus Ini) ---
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // ----------------------------------------------------------------
+        
+        showToast('Terima kasih! Kritik & saran kamu berhasil dikirim secara anonim.');
+        feedbackInput.value = ''; // Kosongkan input setelah sukses
+        
+      } catch (error) {
+        showToast('Maaf, terjadi kesalahan saat mengirim pesan. Coba lagi nanti!', true);
+      } finally {
+        // Kembalikan status tombol seperti semula
+        feedbackSubmit.innerText = originalText;
+        feedbackSubmit.disabled = false;
+      }
+    });
   }
 
   /* ---------- Initial Calls ---------- */

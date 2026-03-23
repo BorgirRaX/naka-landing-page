@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Naka Coffee — A place brings Joy and Happiness. Enjoy coffee and a brief moment of tranquility.">
 
-  <title>Naka Coffee — Joy and Happiness</title>
+  <title>Naka Coffee</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,7 +23,7 @@
       </a>
 
       <ul class="navbar__links" id="nav-links">
-        <li><a href="#" class="navbar__link navbar__link--active">Homepage</a></li>
+        <li><a href="#hero" class="navbar__link navbar__link--active">Homepage</a></li>
         <li><a href="#story" class="navbar__link">Story</a></li>
         <li><a href="#product" class="navbar__link">Product</a></li>
         <li><a href="#locations" class="navbar__link">Locations</a></li>
@@ -43,9 +40,9 @@
   <!-- ============ HERO SECTION ============ -->
   <section class="hero" id="hero">
     <div class="hero__overlay"></div>
-    <img src="assets/images/jumbotron.png" alt="Naka Coffee ambience" class="hero__bg">
+    <img src="assets/images/jumbotron.png" alt="Naka Coffee ambience" class="hero__bg" data-parallax="0.4">
 
-    <div class="hero__content">
+    <div class="hero__content" data-parallax="0.15">
       <h1 class="hero__heading">A place brings Joy<br>and Happiness.</h1>
       <p class="hero__subtitle">Enjoy coffee and a brief moment of tranquility at Naka.</p>
       <a href="#product" class="hero__cta" id="cta-find-product">Find Our Product</a>
@@ -72,6 +69,7 @@
           src="assets/images/Accent1.png"
           alt="Naka Coffee wall accent"
           class="story__img-accent reveal-on-scroll reveal-left"
+          data-parallax="-0.1"
           style="transition-delay: 0.2s;"
         >
         <img
@@ -90,11 +88,8 @@
       <h2 class="product__title reveal-on-scroll">Our Product</h2>
       
       <div class="product__slider-wrapper reveal-on-scroll reveal-up">
-        <!-- Kontainer ini akan diisi produk secara otomatis oleh Javascript -->
         <div class="product__slider" id="product-slider"></div>
       </div>
-      
-      <!-- Titik navigasi (dots) otomatis oleh Javascript -->
       <div class="product__dots" id="product-dots"></div>
       
       <div class="product__actions reveal-on-scroll reveal-up">
@@ -105,14 +100,10 @@
 
   <!-- ============ BREAK SECTION ============ -->
   <section class="break" id="break">
-    <!-- Dekorasi Kopi Lebar -->
-    <img src="assets/images/Accent2.png" alt="Coffee beans accent" class="break__accent reveal-on-scroll">
+    <img src="assets/images/Accent2.png" alt="Coffee beans accent" class="break__accent reveal-on-scroll" data-parallax="-0.15">
     
     <div class="break__inner">
-      <!-- Foto Activity Utama -->
-      <img src="assets/images/NakaActivity2.png" alt="Naka Activity" class="break__img reveal-on-scroll reveal-up">
-      
-      <!-- Kotak Quote -->
+      <img src="assets/images/NakaActivity2.png" alt="Naka Activity" class="break__img reveal-on-scroll reveal-up" data-parallax="0.05">
       <div class="break__quote reveal-on-scroll reveal-left" style="transition-delay: 0.2s;">
         <p>"Temukan tempat ternyaman untuk menikmati kopi spesial dan hidangan lezat yang dibuat dengan sepenuh hati."</p>
       </div>
@@ -120,12 +111,11 @@
   </section>
 
   <!-- ============ LOCATION & FEEDBACK ============ -->
-  <section class="location" id="location">
+  <section class="location" id="locations">
     <div class="location__inner">
       <h2 class="location__title reveal-on-scroll">Find Us</h2>
 
       <div class="location__grid">
-        <!-- Kiri: Info Kontak -->
         <div class="location__info reveal-on-scroll reveal-left">
           <ul class="contact-list">
             <li>
@@ -147,7 +137,6 @@
           </ul>
         </div>
 
-        <!-- Kanan: Google Maps Embed -->
         <div class="location__map reveal-on-scroll reveal-up">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d366.8198239532308!2d110.415025018221!3d-6.997119945966583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b31f307bd89%3A0xec95342b54eb924c!2sNaka%20coffee!5e0!3m2!1sid!2sid!4v1774155692115!5m2!1sid!2sid" 
@@ -161,7 +150,6 @@
         </div>
       </div>
 
-      <!-- Feedback Form -->
       <div class="feedback reveal-on-scroll reveal-up">
         <textarea class="feedback__input" placeholder="Kritik Dan saran..."></textarea>
         <button class="feedback__submit">Kirim</button>
@@ -174,7 +162,6 @@
     <div class="footer__inner">
       <div class="footer__col footer__col--brand">
         <div class="footer__logo">
-          <!-- Pakai logo asli nantinya (misal logo hijau dgn lingkaran putih di CSS) -->
           <img src="assets/images/logo2.png" alt="Naka Coffee">
         </div>
         <p>Tempat di mana kopi berkualitas bertemu dengan kamu.</p>
@@ -211,6 +198,8 @@
       <p>&copy; 2024 Naka Coffee.</p>
     </div>
   </footer>
+
+  <div id="toast-container" class="toast-container"></div>
 
   <!-- Scripts -->
   <script src="script.js"></script>
