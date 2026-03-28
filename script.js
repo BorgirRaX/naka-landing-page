@@ -270,6 +270,7 @@
   /* ---------- Feedback Form (Anonymous) ---------- */
   const feedbackInput = document.querySelector('.feedback__input');
   const feedbackSubmit = document.querySelector('.feedback__submit');
+  const feedbackBotcheck = document.querySelector('.feedback__botcheck');
 
   if (feedbackInput && feedbackSubmit) {
     feedbackSubmit.addEventListener('click', async () => {
@@ -286,36 +287,42 @@
       feedbackSubmit.disabled = true;
 
       try {
-        // KONFIGURASI PENGIRIMAN ANONIM (Gunakan fasilitas Web3Forms)
-        // 1. Kunjungi https://web3forms.com/ dan masukkan email untuk dapat "Access Key".
-        // 2. Hilangkan tanda komentar (/* ... */) pada kodingan fetch di bawah, dan ganti access_key-nya.
-        
-        /*
+        const payload = {
+          access_key: '30d3f16a-feac-42a8-98d9-c294f89371fe', 
+          subject: 'Kritik & Saran Baru - Website Naka Coffee',
+          from_name: 'Pengunjung Anonim Naka', 
+          message: message
+        };
+
+        // Web3Forms mewajibkan botcheck kosong (tidak ada) jika pengirim adalah manusia
+        if (feedbackBotcheck && feedbackBotcheck.checked) {
+          payload.botcheck = true;
+        }
+
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify({
-            access_key: 'YOUR_ACCESS_KEY_HERE', // <--- GANTI DENGAN ACCESS KEY DARI EMAILMU
-            subject: 'Kritik & Saran Baru - Website Naka Coffee',
-            from_name: 'Pengunjung Anonim Naka', 
-            message: message // Teks ketikan user
-          })
+          body: JSON.stringify(payload)
         });
+
         const result = await response.json();
-        if (!result.success) throw new Error('API Error');
-        */
         
-        // --- SIMULASI LOADING BIAR KELIHATAN KERJA (Nanti Hapus Ini) ---
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        // ----------------------------------------------------------------
+        if (!result.success) {
+          throw new Error(result.message || 'API Error');
+        }
         
         showToast('Terima kasih! Kritik & saran kamu berhasil dikirim secara anonim.');
         feedbackInput.value = ''; // Kosongkan input setelah sukses
         
+        if (feedbackBotcheck) {
+          feedbackBotcheck.checked = false;
+        }
+        
       } catch (error) {
+        console.error('Submission Error:', error);
         showToast('Maaf, terjadi kesalahan saat mengirim pesan. Coba lagi nanti!', true);
       } finally {
         // Kembalikan status tombol seperti semula

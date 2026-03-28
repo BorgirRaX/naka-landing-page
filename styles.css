@@ -214,6 +214,8 @@ img { display:block; max-width:100%; height:auto; }
 .location__grid { display:grid; grid-template-columns:var(--loc-grid); gap:var(--loc-gap); align-items:center; margin-bottom:var(--space-3xl); }
 .contact-list { display:flex; flex-direction:column; gap:var(--space-lg); }
 .contact-list li { display:flex; align-items:flex-start; gap:var(--space-md); font-size:0.95rem; color:var(--color-text-dark); }
+.contact-list a { transition: color var(--transition-fast); }
+.contact-list a:hover { color: var(--color-primary); text-decoration: underline; }
 .contact-list svg { flex-shrink:0; color:var(--color-primary); margin-top:2px; }
 
 .location__map { width:100%; height:var(--loc-map-h); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 15px 30px rgba(0,0,0,0.1); background:#eee; }
