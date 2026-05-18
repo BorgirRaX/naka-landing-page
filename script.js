@@ -30,6 +30,7 @@
     const isOpen = navLinks.classList.toggle('navbar__links--open');
     navToggle.classList.toggle('navbar__toggle--open', isOpen);
     navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   /* Close mobile menu when a link is clicked */
@@ -38,6 +39,7 @@
       navLinks.classList.remove('navbar__links--open');
       navToggle.classList.remove('navbar__toggle--open');
       navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     });
   });
 
@@ -47,6 +49,7 @@
       navLinks.classList.remove('navbar__links--open');
       navToggle.classList.remove('navbar__toggle--open');
       navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   });
 
@@ -129,28 +132,28 @@
   /* ---------- Product Data & Slider ---------- */
   const productsData = [
     {
-      title: "Cafe Latte",
-      desc: "Perpaduan Espresso dan Susu segar. Cocok untuk yang kurang suka manis.",
-      price: "Rp. 15.000",
-      img: "assets/images/NakaActivity1.png"
+      title: "Es Kopi Susu Naka Gula Aren",
+      desc: "Espresso dan Susu segar. Ditambah Gula Aren yang manis kaya mas baristanya.",
+      price: "Rp. 18.000",
+      img: "assets/images/KopsuGulaAren.jpg"
     },
     {
-      title: "Chocolatte",
-      desc: "Perpaduan Espresso dan Susu segar. Cocok untuk yang kurang suka manis.",
-      price: "Rp. 15.000",
-      img: "assets/images/concrete-texture.png"
+      title: "Javaricano",
+      desc: "Espresso sama air putih. Cocok buat yang gak manis.",
+      price: "Rp. 18.000",
+      img: "assets/images/Americano.png"
     },
     {
-      title: "Es Kopi Susu Naka",
-      desc: "Perpaduan Espresso dan Susu segar. Cocok untuk yang kurang suka manis.",
-      price: "Rp. 15.000",
-      img: "assets/images/NakaActivity1.png"
+      title: "Ambatukam",
+      desc: "Espreso sama air putih. Tapi ada tambahan pemanis semanis mas Amba.",
+      price: "Rp. 18.000",
+      img: "assets/images/Ambatukam.png"
     },
     {
-      title: "Americano",
-      desc: "Perpaduan Espresso dan Susu segar. Cocok untuk yang kurang suka manis.",
-      price: "Rp. 15.000",
-      img: "assets/images/wood-texture.png"
+      title: "Kentang Goreng",
+      desc: "Kalo laper, ganjel pake ini aja.",
+      price: "Rp. 20.000",
+      img: "assets/images/KentangGoreng.png"
     }
   ];
 
@@ -158,8 +161,8 @@
   const dotsContainer = document.getElementById('product-dots');
 
   if (slider && dotsContainer) {
-    slider.innerHTML = productsData.map(val => `
-      <div class="product-card">
+    slider.innerHTML = productsData.map((val, idx) => `
+      <div class="product-card ${idx === 0 ? 'product-card--featured' : ''}">
         <img src="${val.img}" alt="${val.title}" class="product-card__img" draggable="false">
         <div class="product-card__content">
           <h4 class="product-card__title">${val.title}</h4>
@@ -266,71 +269,6 @@
       setTimeout(() => toast.remove(), 350);
     }, 3000);
   };
-
-  /* ---------- Feedback Form (Anonymous) ---------- */
-  const feedbackInput = document.querySelector('.feedback__input');
-  const feedbackSubmit = document.querySelector('.feedback__submit');
-  const feedbackBotcheck = document.querySelector('.feedback__botcheck');
-
-  if (feedbackInput && feedbackSubmit) {
-    feedbackSubmit.addEventListener('click', async () => {
-      const message = feedbackInput.value.trim();
-      
-      if (!message) {
-        showToast('Ups, pesan masih kosong! Silakan tulis sesuatu.', true);
-        return;
-      }
-
-      // Ubah tombol jadi status loading
-      const originalText = feedbackSubmit.innerText;
-      feedbackSubmit.innerText = 'Mengirim...';
-      feedbackSubmit.disabled = true;
-
-      try {
-        const payload = {
-          access_key: '30d3f16a-feac-42a8-98d9-c294f89371fe', 
-          subject: 'Kritik & Saran Baru - Website Naka Coffee',
-          from_name: 'Pengunjung Anonim Naka', 
-          message: message
-        };
-
-        // Web3Forms mewajibkan botcheck kosong (tidak ada) jika pengirim adalah manusia
-        if (feedbackBotcheck && feedbackBotcheck.checked) {
-          payload.botcheck = true;
-        }
-
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error(result.message || 'API Error');
-        }
-        
-        showToast('Terima kasih! Kritik & saran kamu berhasil dikirim secara anonim.');
-        feedbackInput.value = ''; // Kosongkan input setelah sukses
-        
-        if (feedbackBotcheck) {
-          feedbackBotcheck.checked = false;
-        }
-        
-      } catch (error) {
-        console.error('Submission Error:', error);
-        showToast('Maaf, terjadi kesalahan saat mengirim pesan. Coba lagi nanti!', true);
-      } finally {
-        // Kembalikan status tombol seperti semula
-        feedbackSubmit.innerText = originalText;
-        feedbackSubmit.disabled = false;
-      }
-    });
-  }
 
   /* ---------- Initial Calls ---------- */
   handleScroll();

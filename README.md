@@ -1,24 +1,92 @@
 # Naka Coffee — Landing Page
 
-A clean, minimal landing page for **Naka Coffee** built with HTML, CSS, and vanilla JavaScript.
+Landing page untuk **Naka Coffee**, kopisop lucu-lucuan di Semarang.  
+Built with HTML, CSS, dan vanilla JavaScript.
 
 ---
 
-## ✨ Tentang Naka Coffee
+## ☕ About Naka
 
-Naka Coffee adalah kedai kopi modern yang menyajikan kopi dengan suasana yang bersahabat. Landing page ini dirancang untuk mencerminkan komitmen kami terhadap kualitas, memberikan pengunjung pengalaman digital yang bersih, elegan, dan intuitif.
+Naka diambil dari bahasa Jepang yang berarti:
 
-## 🌟 Fitur Halaman
+- nyaman
+- akrab
+- kaya rasa
 
-- **Desain Modern & Bersih**: Tampilan minimalis yang menonjolkan produk dan suasana kedai kopi kami.
-- **Tata Letak Responsif**: Tampil sempurna di semua ukuran layar, dari desktop hingga smartphone.
-- **Navigasi Intuitif**: Menu navigasi yang lengket (sticky) dan responsif untuk memudahkan pengunjung menelusuri halaman.
-- **Hero Section Menarik**: Sambutan visual yang memikat dengan ajakan (Call-to-Action) yang jelas untuk menjelajahi Naka Coffee.
+Website ini dibuat untuk merepresentasikan vibe Naka:
+tempat nongkrong kecil dengan suasana hangat, branding absurd, dan konsep:
 
-## 🎯 Tujuan Landing Page
+> “Anggep wae omahe dewe.”
 
-Halaman ini berfungsi sebagai pintu gerbang digital untuk Naka Coffee, yang bertujuan untuk:
+Mulai dari copywriting, layout, sampai tampilan visual dirancang supaya terasa lebih personal, lokal, dan gak terlalu corporate.
 
-- Memperkenalkan identitas dan nilai brand kami kepada pelanggan baru.
-- Menarik minat pengunjung untuk datang ke kedai atau memesan produk kami.
-- Memberikan pengalaman pengguna yang nyaman dan informatif.
+---
+
+## ✨ Features
+
+- Responsive landing page
+- Mobile navigation drawer
+- Sticky responsive navbar
+- Smooth scrolling navigation
+- Interactive product section
+- Responsive footer & layout
+- Embedded Google Maps
+- Custom copywriting sesuai branding Naka
+- Mobile-first responsive adjustments
+
+---
+
+## 🎨 Design Direction
+
+Website ini dibuat dengan pendekatan:
+
+- warm minimalist
+- indie coffee shop aesthetic
+- playful local branding
+- clean but not corporate
+- simple but memorable
+
+Fokus utama project ini bukan cuma visual, tapi bagaimana website bisa terasa “punya karakter” dan sesuai dengan identitas Naka Coffee di dunia nyata maupun sosial media.
+
+---
+
+## 📱 Responsive Design
+
+Landing page sudah dioptimasi untuk berbagai ukuran layar:
+
+- Desktop
+- Tablet
+- Mobile devices
+- iPhone responsive layout
+- iPad responsive layout
+
+---
+
+## 🛠 Tech Stack
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+
+---
+
+## 📍 Naka Coffee
+
+Semarang, Indonesia
+
+Instagram: [@naka.coffee](https://www.instagram.com/naka.coffee)  
+TikTok: [@naka.coffeesmg](https://www.tiktok.com/@naka.coffeesmg)
+
+---
+
+## 📸 Branding Notes
+
+Naka dikenal dengan branding yang absurd dan nyeleneh di sosial media:
+mulai dari konten random, menu unik, sampai suasana nongkrong yang lebih terasa seperti rumah sendiri daripada coffee shop formal.
+
+Dan justru itu yang coba dibawa ke website ini.
+
+---
+
+> “Yang dicari kadang bukan kopinya.”  
+> “Kalo kangen datang aja nggeh.”
