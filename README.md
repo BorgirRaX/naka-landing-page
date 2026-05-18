@@ -5,6 +5,10 @@ Built with HTML, CSS, dan vanilla JavaScript.
 
 ---
 
+## Preview
+
+![Naka Coffee Preview](./assets/images/Preview.png)
+
 ## ☕ About Naka
 
 Naka diambil dari bahasa Jepang yang berarti:
