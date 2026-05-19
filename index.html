@@ -3,10 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Naka Coffee — A place brings Joy and Happiness. Enjoy coffee and a brief moment of tranquility.">
+  <meta name="description" content="Naka Coffee — Kopisop lucu-lucuan di Semarang. Tempat nyaman buat ngobrol, ngopi, dan numpang wifi sampai lupa pulang.">
 
-  <title>Naka Coffee</title>
+  <title>Naka Coffee — Kopisop Lucu-Lucuan di Semarang</title>
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://borgirrax.github.io/naka-landing-page/">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Naka Coffee — Kopisop Lucu-Lucuan di Semarang">
+  <meta property="og:description" content="Kopisop lucu-lucuan di Semarang. Tempat nyaman buat ngobrol, ngopi, dan numpang wifi sampai lupa pulang.">
+  <meta property="og:image" content="https://borgirrax.github.io/naka-landing-page/assets/images/jumbotron.png">
+  <meta property="og:url" content="https://borgirrax.github.io/naka-landing-page/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Naka Coffee — Kopisop Lucu-Lucuan di Semarang">
+  <meta name="twitter:description" content="Kopisop lucu-lucuan di Semarang. Tempat nyaman buat ngobrol, ngopi, dan numpang wifi sampai lupa pulang.">
+  <meta name="twitter:image" content="https://borgirrax.github.io/naka-landing-page/assets/images/jumbotron.png">
+
+  <link rel="icon" type="image/jpeg" href="assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -80,16 +98,18 @@
 
       <div class="story__images">
         <img
-          src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?q=80&w=850&auto=format&fit=crop"
-          alt="Wooden texture background"
+          src="assets/images/Accent1.png"
+          alt=""
           class="story__img-accent reveal-on-scroll reveal-left"
           data-parallax="-0.1"
+          loading="lazy"
           style="transition-delay: 0.2s;"
         >
         <img
           src="assets/images/NakaActivity1.png"
-          alt="Aktivitas di Naka Coffee"
+          alt="Suasana pengunjung asik ngobrol di Naka Coffee Semarang"
           class="story__img-main reveal-on-scroll reveal-up"
+          loading="lazy"
           style="transition-delay: 0.4s;"
         >
       </div>
@@ -107,17 +127,17 @@
       <div class="product__dots" id="product-dots"></div>
       
       <div class="product__actions reveal-on-scroll reveal-up">
-        <a href="#menu" class="btn-primary">Masih ada yang enak!!</a>
+        <a href="#product" class="btn-primary" aria-label="Lihat menu lainnya">Masih ada yang enak!!</a>
       </div>
     </div>
   </section>
 
   <!-- ============ BREAK SECTION ============ -->
   <section class="break" id="break">
-    <img src="assets/images/Accent2.png" alt="Coffee beans accent" class="break__accent reveal-on-scroll" data-parallax="-0.15">
+    <img src="assets/images/Accent2.png" alt="" class="break__accent reveal-on-scroll" data-parallax="-0.15" loading="lazy">
     
     <div class="break__inner">
-      <img src="assets/images/NakaActivity2.png" alt="Naka Activity" class="break__img reveal-on-scroll reveal-up" data-parallax="0.05">
+      <img src="assets/images/NakaActivity2.png" alt="Barista Naka Coffee sedang menyiapkan kopi" class="break__img reveal-on-scroll reveal-up" data-parallax="0.05" loading="lazy">
       <div class="break__quote reveal-on-scroll reveal-left" style="transition-delay: 0.2s;">
         <p>"Yang dicari kadang bukan kopinya. Kalo kangen datang aja nggeh."</p>
       </div>
@@ -168,8 +188,8 @@
           <p class="location__microcopy reveal-on-scroll">Kalo penuh, sabar nggeh.</p>
 
           <div class="location__cta reveal-on-scroll reveal-up">
-            <h2 class="location__cta-title">Mampir Nggeh.</h2>
-            <a href="https://maps.app.goo.gl/NaJeGdJ4hbuuddfY6" target="_blank" class="btn-primary btn-primary--location">Pencet buat ngemaps.</a>
+            <h3 class="location__cta-title">Mampir Nggeh.</h3>
+            <a href="https://maps.app.goo.gl/NaJeGdJ4hbuuddfY6" target="_blank" rel="noopener noreferrer" class="btn-primary btn-primary--location" aria-label="Buka Google Maps ke lokasi Naka Coffee">Pencet buat ngemaps.</a>
           </div>
         </div>
 
@@ -193,7 +213,7 @@
     <div class="footer__inner">
       <div class="footer__col footer__col--brand">
         <div class="footer__logo">
-          <img src="assets/images/logo2.png" alt="Naka Coffee">
+          <img src="assets/images/logo2.png" alt="Naka Coffee Logo" loading="lazy">
         </div>
         <p class="footer__tagline">Kopisop lucu-lucuan di Semarang.</p>
         <p class="footer__microcopy">Anggep wae omahe dewe.</p>
@@ -208,15 +228,15 @@
       </div>
       
       <div class="footer__col">
-        <h4>Kadang upload aneh-aneh</h4>
+        <h3 class="footer__social-heading">Kadang upload aneh-aneh</h3>
         <ul class="footer__social">
           <li>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <a href="https://www.instagram.com/naka.coffee?igsh=ZnR2Z24wN2Zjd3lz" target="_blank">@naka.coffee</a>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <a href="https://www.instagram.com/naka.coffee?igsh=ZnR2Z24wN2Zjd3lz" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi Instagram Naka Coffee">@naka.coffee</a>
           </li>
           <li>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-            <a href="https://www.tiktok.com/@naka.coffeesmg?_r=1&_t=ZS-954JW2csxDJ" target="_blank">@naka.coffeesmg</a>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            <a href="https://www.tiktok.com/@naka.coffeesmg?_r=1&_t=ZS-954JW2csxDJ" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi TikTok Naka Coffee">@naka.coffeesmg</a>
           </li>
         </ul>
       </div>
@@ -226,7 +246,30 @@
     </div>
   </footer>
 
-  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Local Business Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Naka Coffee",
+    "image": "https://borgirrax.github.io/naka-landing-page/assets/images/jumbotron.png",
+    "description": "Kopisop lucu-lucuan di Semarang. Tempat nyaman buat ngobrol, ngopi, dan numpang wifi sampai lupa pulang.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. Lempongsari Tim. IV No.203f",
+      "addressLocality": "Gajahmungkur, Semarang",
+      "addressRegion": "Jawa Tengah",
+      "addressCountry": "ID"
+    },
+    "url": "https://borgirrax.github.io/naka-landing-page/",
+    "telephone": "+6282135230647",
+    "sameAs": [
+      "https://www.instagram.com/naka.coffee",
+      "https://www.tiktok.com/@naka.coffeesmg"
+    ]
+  }
+  </script>
 
   <!-- Scripts -->
   <script src="script.js"></script>

@@ -253,22 +253,6 @@
     }, { passive: true });
   }
 
-  /* ---------- Custom Toast Notification ---------- */
-  const showToast = (message, isError = false) => {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-    
-    const toast = document.createElement('div');
-    toast.className = `toast ${isError ? 'toast--error' : ''}`;
-    toast.innerText = message;
-    container.appendChild(toast);
-    
-    setTimeout(() => toast.classList.add('toast--show'), 10);
-    setTimeout(() => {
-      toast.classList.remove('toast--show');
-      setTimeout(() => toast.remove(), 350);
-    }, 3000);
-  };
 
   /* ---------- Initial Calls ---------- */
   handleScroll();
