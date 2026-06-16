@@ -20,7 +20,9 @@
     lightboxCaption.textContent = altText || 'Panduan Pemesanan Naka Coffee';
     lightbox.classList.add('lightbox-modal--open');
     lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Lock background scrolling
+    if (document.body) {
+      document.body.style.overflow = 'hidden'; // Lock background scrolling
+    }
   };
 
   // Close Lightbox
@@ -29,7 +31,9 @@
 
     lightbox.classList.remove('lightbox-modal--open');
     lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = ''; // Unlock background scrolling
+    if (document.body) {
+      document.body.style.overflow = ''; // Unlock background scrolling
+    }
     
     // Clear src to prevent flash of old image when opened next time
     setTimeout(() => {
@@ -38,11 +42,15 @@
   };
 
   // Bind click event to all zoomable screenshot images
-  zoomableImages.forEach((img) => {
-    img.addEventListener('click', (e) => {
-      openLightbox(e.currentTarget.src, e.currentTarget.alt);
+  if (zoomableImages && zoomableImages.length > 0) {
+    zoomableImages.forEach((img) => {
+      if (img) {
+        img.addEventListener('click', (e) => {
+          openLightbox(e.currentTarget.src, e.currentTarget.alt);
+        });
+      }
     });
-  });
+  }
 
   // Bind close events
   if (lightboxClose) {
@@ -59,10 +67,12 @@
   }
 
   // Close when pressing Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox && lightbox.classList.contains('lightbox-modal--open')) {
-      closeLightbox();
-    }
-  });
+  if (document) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('lightbox-modal--open')) {
+        closeLightbox();
+      }
+    });
+  }
 
 })();
